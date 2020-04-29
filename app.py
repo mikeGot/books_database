@@ -5,28 +5,11 @@ from sqlalchemy import *
 import sqlite3
 from sqlalchemy import create_engine
 
-# conn = sqlite3.connect('books-coll.db')
-# c = conn.cursor()
-# c.execute("""CREATE TABLE books
-#             (id INTEGER PRIMARY KEY ASC,
-#             name string(200) NOT NULL)
-#         """)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///book.db'
 db = SQLAlchemy(app)
-#db.create_all()
-#db.session.commit()
 
-# metadata = MetaData()
-# book = Table(
-#     "book", metadata,
-#     Column('id', Integer, primary_key=True),
-#     Column('name', String),
-#     Column('author', String),
-#     Column('datatime', default=datetime.utcnow)
-# )
-# book.create(bind=engine)
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -85,7 +68,6 @@ def update(id):
     task = Todo.query.get_or_404(id)
 
     if request.method == 'POST':
-        #task.content = request.form['content']
         task.author = request.form['author']
         task.name = request.form['name']
         task.publisher = request.form['publisher']
